@@ -16,7 +16,7 @@ async function go() {
     server.route({
         method: '*',
         path: '/{path*}',
-        handler: async (req, h) => {
+        handler: (req, h) => {
             req.logger.info('In handler %s', req.path)
             return {};
         }
