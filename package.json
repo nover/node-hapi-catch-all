@@ -1,0 +1,20 @@
+{
+  "name": "node-hapi-catch-all",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Nicklas Laine Overgaard <nicklas@skarp.dk>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "hapi": "^17.5.2",
+    "hapi-pino": "^4.0.4",
+    "pino": "^4.17.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.3"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "start:dev": "nodemon src/index.js"
+  }
+}
