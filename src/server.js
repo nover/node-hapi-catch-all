@@ -1,9 +1,5 @@
 const Hapi = require('hapi');
 
-/**
- *
- * @param {pino} logger A pino logger instance
- */
 async function go() {
     const server = new Hapi.Server({
         port: 7788
