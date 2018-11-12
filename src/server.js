@@ -1,33 +1,53 @@
-const Hapi = require('hapi');
+const http = require('http');
+const logger = require('pino')();
 
-async function go() {
-    const server = new Hapi.Server({
-        port: 7788
+function requestWithBody(req) {
+    return new Promise((resolve) => {
+        let body = '';
+        req.on('data', chunk => {
+            body += chunk.toString(); // convert Buffer to string
+        });
+        req.on('end', () => {
+            resolve({
+                headers: req.headers,
+                method: req.method,
+                payload: body,
+                url: req.url,
+                remoteAddress: req.connection.remoteAddress,
+            });
+        });
     });
-    await server.register({
-        plugin: require('hapi-pino'),
-        options: {
-            prettyPrint: false,
-            logPayload: true,
-            instance: require('pino')()
-        }
-    });
-
-    server.route({
-        method: '*',
-        path: '/{path*}',
-        handler: (req, h) => {
-            req.logger.info('In handler %s', req.path)
-            return {};
-        }
-    });
-
-    await server.start();
-
-    return server.info;
 }
 
+async function requestNoBody(req) {
+    return {
+        headers: req.headers,
+        method: req.method,
+        payload: null,
+        url: req.url,
+        remoteAddress: req.connection.remoteAddress,
+    };
+}
 
+async function go() {
+    const server = http.createServer(async function (req, res) {
+        let data = null;
+        if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
+            data = await requestWithBody(req);
+        }
+        else {
+            data = await requestNoBody(req);
+        }
+        logger.info(data);
+
+        res.writeHead(200, {'Content-Type': 'text/plain'});
+        res.write('{}');
+        res.end();
+
+    }).listen(7788);
+
+    return server;
+}
 module.exports = {
-    go,
+    go
 };

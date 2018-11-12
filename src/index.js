@@ -1,9 +1,7 @@
 const server = require('./server');
-
-
 server
     .go()
-    .then((info) => {
-        console.log('server started', info);
+    .then((srv) => {
+        console.log('server started');
     })
     .catch(console.error);
