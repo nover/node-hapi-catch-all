@@ -1,4 +1,4 @@
-# hapi catch all
+# http catch all
 
 This repo contains a very minimal http API that responds to all verbs and paths, and simply logs the path it's handling including the full request payload.
 
@@ -22,11 +22,11 @@ To start with hot-reloading enabled.
 To format the output nicely, do:
 
 ```bash
-yarn global add pino
+yarn global add pino-pretty
 ```
 
 And start like:
 
 ```bash
-yarn start|pino #or: yarn start:dev|pino
+yarn start|pino-pretty #or: yarn start:dev|pino-pretty
 ```
