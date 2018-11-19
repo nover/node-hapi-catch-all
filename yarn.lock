@@ -802,6 +802,11 @@ make-dir@^1.0.0:
   dependencies:
     pify "^3.0.0"
 
+make-promises-safe@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/make-promises-safe/-/make-promises-safe-3.0.0.tgz#84cdf9e3e4f3144bb0f9f52d25569849063e7a90"
+  integrity sha512-ebUkRFxjClLDsvNfajkiWkhnOgUWF65RK1HOGLhqggjzW66xAelaPBEYnjhIeRWWy1bcNdtzbskcHxglhEJqwA==
+
 map-cache@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/map-cache/-/map-cache-0.2.2.tgz#c32abd0bd6525d9b051645bb4f26ac5dc98a0dbf"
@@ -847,6 +852,7 @@ minimist@0.0.8:
 minimist@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.0.tgz#a35008b20f41383eec1fb914f4cd5df79a264284"
+  integrity sha1-o1AIsg9BOD7sH7kU9M1d95omQoQ=
 
 minipass@^2.2.1, minipass@^2.3.3:
   version "2.3.3"

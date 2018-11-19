@@ -9,6 +9,8 @@
     "node": ">= 8.9"
   },
   "dependencies": {
+    "make-promises-safe": "^3.0.0",
+    "minimist": "^1.2.0",
     "pino": "^5.8.1"
   },
   "devDependencies": {
