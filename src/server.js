@@ -1,17 +1,24 @@
 const http = require('http');
 const logger = require('pino')();
+const fs = require('fs');
+const {promisify} = require("util");
+
+const writeFile = promisify(fs.writeFile);
 
 function requestWithBody(req) {
     return new Promise((resolve) => {
-        let body = '';
+        let body = Buffer.alloc(0);
         req.on('data', chunk => {
-            body += chunk.toString(); // convert Buffer to string
+            body = Buffer.concat([body, chunk]);
         });
-        req.on('end', () => {
+        req.on('end', async () => {
+            const bodyString = body.toString('base64');
+            await writeFile(`./data/${Date.now()}.dat`, bodyString);
+
             resolve({
                 headers: req.headers,
                 method: req.method,
-                payload: body,
+                payload: `{body of length: ${bodyString.length}}`,
                 url: req.url,
                 remoteAddress: req.connection.remoteAddress,
             });
@@ -30,7 +37,7 @@ async function requestNoBody(req) {
 }
 
 async function go() {
-    const server = http.createServer(async function (req, res) {
+    return http.createServer(async function (req, res) {
         let data = null;
         if (req.method === 'POST' || req.method === 'PUT' || req.method === 'PATCH') {
             data = await requestWithBody(req);
@@ -45,9 +52,8 @@ async function go() {
         res.end();
 
     }).listen(7788);
-
-    return server;
 }
+
 module.exports = {
     go
 };
